@@ -15,7 +15,9 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $teachers =Teachers::simplePaginate(2);
+        return view ('teachers.index',compact('teachers'));
+
     }
 
     /**
