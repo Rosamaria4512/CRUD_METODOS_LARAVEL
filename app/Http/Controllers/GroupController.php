@@ -16,7 +16,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $groups =Group::simplePaginate(3);
+        return view ('groups.index',compact('groups'));
     }
 
     /**

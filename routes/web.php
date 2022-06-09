@@ -3,6 +3,7 @@
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeachersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ Route::get('/', function () {
 });
 
 // Ruta para docentes
-Route::resource('profesores', TeacherController::class);
+Route::resource('profesores', TeachersController::class);
 
 Route::resource('materias',SubjectController::class);
 

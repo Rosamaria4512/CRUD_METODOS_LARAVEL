@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
 
-
-class TeacherController extends Controller
+class TeachersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +17,7 @@ class TeacherController extends Controller
         $teachers =Teachers::simplePaginate(2);
         return view ('teachers.index',compact('teachers'));
 
+
     }
 
     /**
@@ -27,7 +27,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teachers.create');
+        return view ('Teachers.create');
     }
 
     /**
@@ -47,15 +47,16 @@ class TeacherController extends Controller
         $teachers->nivel_academico = $request->nivel_academico;
         $teachers->save();
         return redirect()->route('profesores.create');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Teachers  $teachers
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Teachers $teachers)
     {
         //
     }
@@ -63,34 +64,47 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Teachers  $teachers
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $teacher = Teachers::find($id);
+       return view('Teachers.edit' , compact('teacher'));
+       
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Teachers  $teachers
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $teachers=Teachers::find($id);
+        $teachers->nombres = $request->nombres;
+        $teachers->apellidos = $request->apellidos;
+        $teachers->direccion = $request->direccion;
+        $teachers->correo = $request->correo;
+        $teachers->celular = $request->celular;
+        $teachers->nivel_academico = $request->nivel_academico;
+        $teachers->save();
+        return redirect()->route('profesores.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Teachers  $teachers
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Teachers::find($id)->delete();
+        return back();
     }
 }
